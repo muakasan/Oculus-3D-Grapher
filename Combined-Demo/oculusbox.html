@@ -120,10 +120,19 @@
                 }
                 var vrstate = new vr.State();
                 function animate() {
+                    var firstFrame;
                     var controller = Leap.loop({enableGestures:true}, function(frame){
+                        if(!firstFrame){
+                            firstFrame = frame;
+                        }
+                        var linearMovement = frame.translation(firstFrame); 
+                        cube.position.x -= parseInt(linearMovement[0])/100;
+                        cube.position.y -= parseInt(linearMovement[2])/100;
+                        cube.position.z -= parseInt(linearMovement[1])/100;
+                        /*
                         cube.rotation.x+=0.1;
                         cube.rotation.y+=0.1;
-
+                        */
                         controls.isOnObject(false);
 
                         ray.ray.origin.copy(controls.getObject().position);
