@@ -126,8 +126,8 @@
                             firstFrame = frame;
                         }
                         var linearMovement = frame.translation(firstFrame); 
-                        cube.position.x -= parseInt(linearMovement[0])/100;
-                        cube.position.y -= parseInt(linearMovement[2])/100;
+                        cube.position.x += parseInt(linearMovement[0])/100;
+                        cube.position.y += parseInt(linearMovement[2])/100;
                         cube.position.z -= parseInt(linearMovement[1])/100;
                         /*
                         cube.rotation.x+=0.1;

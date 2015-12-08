@@ -1,15 +1,3 @@
-var ws;
-var paused = false;
-var pauseOnGesture = false;
-var focusListener;
-var blurListener;
-
-// Support both the WebSocket and MozWebSocket objects
-if ((typeof(WebSocket) == 'undefined') &&
-    (typeof(MozWebSocket) != 'undefined')) {
-    WebSocket = MozWebSocket;
-}
-
 var width = 1000;
 var height = 1000;
 
@@ -28,7 +16,7 @@ var controller = Leap.loop({enableGestures:true}, function(frame){
     else {
         try {
             var linearMovement = frame.translation(firstFrame);
-            document.getElementById('xtranslation').innerText = linearMovement;
+            document.getElementById('linearMovement').innerText = linearMovement;
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
             ctx.fillStyle = "#FF0000";
