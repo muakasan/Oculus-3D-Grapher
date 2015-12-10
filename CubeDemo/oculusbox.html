@@ -68,7 +68,6 @@
                 });
                 function init() {
                     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-                    camera.position.x
                     scene = new THREE.Scene();
 
                     controls = new THREE.OculusRiftControls( camera );
@@ -85,7 +84,7 @@
 
                     //console.log(geometry);
 
-                    //parGeometry =THREE.ParametricGeometry(surface, 10, 10);
+                    //parGeometry = new THREE.ParametricGeometry(surface, 100, 100);
                     //parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
                     //curve = new THREE.Mesh(parGeometry, parMaterial);
@@ -105,7 +104,7 @@
                     renderer = new THREE.WebGLRenderer({
                         devicePixelRatio: 1,
                         alpha: false,
-                        clearColor: 0x00ff00,
+                        clearColor: 0x000000,
                         antialias: true
                     });
                     effect = new THREE.OculusRiftEffect(renderer);
@@ -143,11 +142,17 @@
                     effect.render(scene, camera, polled ? vrstate : null);
 
                     time = Date.now();
+                    //console.log("x: ", )
                 }
 
                 function surface(u, v) {
+                    /*
                     var z = (u-0.5)*(u-0.5)+(v-0.5)*(v-0.5);
-                    return new THREE.Vector3((u-0.5)*10, (v-0.5)*10, z*10);
+                    return new THREE.Vector3((u-0.5)*100, z*100, (v-0.5)*100);
+                    */
+                    //var z = 1-((u-0.5)*(u-0.5)+(v-0.5)*(v-0.5));
+                    //return new THREE.Vector3((u-0.5)*100, z*100, (v-0.5)*100);
+                    return new THREE.Vector3(Math.cos(u*2*Math.PI)*Math.sin(v*2*Math.PI)*100, Math.cos(u*2*Math.PI)*Math.cos(v*2*Math.PI)*100, Math.sin(u*2*Math.PI)*100);
                 }
             })();
         </script>
