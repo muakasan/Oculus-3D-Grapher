@@ -32,13 +32,15 @@
             }
 
         </style>
-    </head>
-    <body>
         <script src="vr.js"></script>
         <script src="three.js"></script>
         <script src="js/controls/OculusRiftControls.js"></script>
         <script src="js/effects/OculusRiftEffect.js"></script>
-        <script src="leapjs/leap-0.6.4.js"></script>
+        <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    </head>
+    <body>
+        <button id="button">Hi</button>
         <div id="info">IPD: <span id='ipd'>0</span> (+o/-p)</div>
         <script>
             (function() {
@@ -59,15 +61,19 @@
                         //statusEl.innerText = 'Plugin load failed: ' + error.toString();
                         //alert('Plugin load failed: ' + error.toString());
                     }
+                    $("#button").click(function(){
+                        console.log("hi");
+                        init();
+                        animate();
+                    });
 
-                    init();
-                    animate();
                     /*} catch (e) {
                         //statusEl.innerText = e.toString();
                         console.log(e);
                     }*/
                 });
                 function init() {
+
                     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
                     camera.position.x
                     scene = new THREE.Scene();
@@ -117,10 +123,12 @@
                         effect.getInterpupillaryDistance().toFixed(3);
 
                     document.body.appendChild( renderer.domElement );
+
                 }
                 var vrstate = new vr.State();
                 function animate() {
                     var firstFrame;
+
                     var controller = Leap.loop({enableGestures:true}, function(frame){
                         if(!firstFrame){
                             firstFrame = frame;
