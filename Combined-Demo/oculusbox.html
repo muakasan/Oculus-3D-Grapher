@@ -54,7 +54,7 @@
 
                 var ray;
 
-                var cube;
+                var surface;
 
                 vr.load(function(error) {
                     if (error) {
@@ -97,15 +97,15 @@
 
                     //curve = new THREE.Mesh(parGeometry, parMaterial);
 
-                    cube = new THREE.Mesh( geometry, material );
+                    surface = new THREE.Mesh( geometry, material );
                     
                     //console.log(cube.computeCentroids());
 
-                    cube.position.x = 10;
-                    cube.position.y = 10;
-                    cube.position.z = -10;
-                    scene.add(cube);
-                    objects.push(cube);
+                    surface.position.x = 10;
+                    surface.position.y = 10;
+                    surface.position.z = -10;
+                    scene.add(surface);
+                    objects.push(surface);
                     //scene.add(curve);
                     //objects.push(curve);
 
@@ -134,9 +134,9 @@
                             firstFrame = frame;
                         }
                         var linearMovement = frame.translation(firstFrame); 
-                        cube.position.x += parseInt(linearMovement[0])/100;
-                        cube.position.y += parseInt(linearMovement[1])/100;
-                        cube.position.z += parseInt(linearMovement[2])/100;
+                        surface.position.x += parseInt(linearMovement[0])/100;
+                        surface.position.y += parseInt(linearMovement[1])/100;
+                        surface.position.z += parseInt(linearMovement[2])/100;
                         /*
                         cube.rotation.x+=0.1;
                         cube.rotation.y+=0.1;
