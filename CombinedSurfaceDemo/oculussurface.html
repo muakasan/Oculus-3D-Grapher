@@ -39,6 +39,7 @@
         <script src="js/controls/OculusRiftControls.js"></script>
         <script src="js/effects/OculusRiftEffect.js"></script>
         <script src="leapjs/leap-0.6.4.js"></script>
+        <button>Push this button!</button>
         <div id="info">IPD: <span id='ipd'>0</span> (+o/-p)</div>
         <script>
             (function() {
@@ -81,27 +82,27 @@
                     //var test = new THREE.Geometry();
                     //test.computeCentroids();
 
-                    geometry = new THREE.CubeGeometry( 20, 20, 20 )
-                    material = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
+                    //geometry = new THREE.CubeGeometry( 20, 20, 20 )
+                    //material = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
                     //console.log(geometry);
 
-                    //parGeometry =THREE.ParametricGeometry(surface, 10, 10);
-                    //parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
+                    parGeometry =THREE.ParametricGeometry(surface, 10, 10);
+                    parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
-                    //curve = new THREE.Mesh(parGeometry, parMaterial);
+                    curve = new THREE.Mesh(parGeometry, parMaterial);
 
-                    cube = new THREE.Mesh( geometry, material );
+                    //cube = new THREE.Mesh( geometry, material );
                     
                     //console.log(cube.computeCentroids());
 
-                    cube.position.x = 10;
+                    /*cube.position.x = 10;
                     cube.position.y = 10;
                     cube.position.z = -10;
                     scene.add(cube);
-                    objects.push(cube);
-                    //scene.add(curve);
-                    //objects.push(curve);
+                    objects.push(cube);*/
+                    scene.add(curve);
+                    objects.push(curve);
 
                     renderer = new THREE.WebGLRenderer({
                         devicePixelRatio: 1,
@@ -126,9 +127,9 @@
                             firstFrame = frame;
                         }
                         var linearMovement = frame.translation(firstFrame); 
-                        cube.position.x += parseInt(linearMovement[0])/100;
-                        cube.position.y += parseInt(linearMovement[1])/100;
-                        cube.position.z += parseInt(linearMovement[2])/100;
+                        //cube.position.x += parseInt(linearMovement[0])/100;
+                        //cube.position.y += parseInt(linearMovement[1])/100;
+                        //cube.position.z += parseInt(linearMovement[2])/100;
                         /*
                         cube.rotation.x+=0.1;
                         cube.rotation.y+=0.1;
