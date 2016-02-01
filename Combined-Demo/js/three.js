@@ -33054,7 +33054,7 @@ THREE.TetrahedronGeometry.prototype = Object.create( THREE.Geometry.prototype );
 
 THREE.ParametricGeometry = function ( func, slices, stacks, useTris ) {
 
-	Geometry.call( this );
+	THREE.Geometry.call( this );
 
 	var verts = this.vertices;
 	var faces = this.faces;
