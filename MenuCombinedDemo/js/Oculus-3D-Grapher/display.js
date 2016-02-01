@@ -1,3 +1,5 @@
+var useLeap = true;
+
 function findRightSurface() {
     if(document.getElementById("torusa").value!='')
         run(torus(document.getElementById("torusa").value, document.getElementById("torusc").value));
@@ -22,6 +24,7 @@ function run(surfaceData) {
     var ray;
 
     var cube;
+    var surface;
 
     vr.load(function(error) {
         if (error) {
@@ -46,30 +49,13 @@ function run(surfaceData) {
         ray = new THREE.Raycaster();
         ray.ray.direction.set( 0, -1, 0 );
 
-        //var test = new THREE.Geometry();
-        //test.computeCentroids();
-
-        //geometry = new THREE.CubeGeometry( 20, 20, 20 )
-        //material = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
-
-        //console.log(geometry);
-
         parGeometry = new THREE.ParametricGeometry(surfaceData, 100, 100);
         parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
-        curve = new THREE.Mesh(parGeometry, parMaterial);
+        var surface = new THREE.Mesh(parGeometry, parMaterial);
 
-        //cube = new THREE.Mesh( geometry, material );
-        
-        //console.log(cube.computeCentroids());
-
-        /*cube.position.x = 10;
-        cube.position.y = 10;
-        cube.position.z = -10;
-        scene.add(cube);
-        objects.push(cube);*/
-        scene.add(curve);
-        objects.push(curve);
+        scene.add(surface);
+        objects.push(surface);
 
         renderer = new THREE.WebGLRenderer({
             devicePixelRatio: 1,
@@ -91,14 +77,9 @@ function run(surfaceData) {
 
     }
     var vrstate = new vr.State();
-    function animate() {
-        vr.requestAnimationFrame(animate);
-
-        //cube.rotation.x+=0.1;
-        //cube.rotation.y+=0.1;
-
+    
+    function iter() {
         controls.isOnObject(false);
-
         ray.ray.origin.copy(controls.getObject().position);
         ray.ray.origin.y -= 10;
 
@@ -116,6 +97,38 @@ function run(surfaceData) {
         effect.render(scene, camera, polled ? vrstate : null);
 
         time = Date.now();
-        //console.log("x: ", )
+    }
+
+    function animateWithLeap() {
+        var firstFrame;
+
+        var controller = Leap.loop({enableGestures:true}, function(frame){
+            if(!firstFrame){
+                firstFrame = frame;
+            }
+            var linearMovement = frame.translation(firstFrame); 
+            surface.position.x += parseInt(linearMovement[0])/100;
+            surface.position.y += parseInt(linearMovement[1])/100;
+            surface.position.z += parseInt(linearMovement[2])/100;
+            iter();
+        });
+        controller.connect();
+        console.log(controller.connected());
+    }
+
+    function animateNoLeap() {
+        vr.requestAnimationFrame(animateNoLeap);
+        iter();
+    }
+    function animate() {
+        if(useLeap)
+        {
+            animateWithLeap();
+           
+        }
+        else {
+            animateNoLeap();
+
+        }
     }
 }
