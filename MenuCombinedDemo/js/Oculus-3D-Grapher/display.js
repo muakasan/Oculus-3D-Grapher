@@ -1,5 +1,3 @@
-var useLeap = true;
-
 function findRightSurface() {
     if(document.getElementById("torusa").value!='')
         run(torus(document.getElementById("torusa").value, document.getElementById("torusc").value));
@@ -121,7 +119,7 @@ function run(surfaceData) {
         iter();
     }
     function animate() {
-        if(useLeap)
+        if(!$("#disable-leap-checkbox").is(":checked"))
         {
             animateWithLeap();
            

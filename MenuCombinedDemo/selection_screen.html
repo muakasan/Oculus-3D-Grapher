@@ -8,7 +8,7 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <!--<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>-->
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="vr.js"></script>
         <script src="three.js"></script>
@@ -21,13 +21,20 @@
 
     <body>
         <div id="menu-div">
-        	<nav class="light-blue"></nav>
+        	<nav class="light-blue">
+                <div class="nav-wrapper">
+                    <div class="chip right">
+                        <input type="checkbox" class="filled-in" id="disable-leap-checkbox"/>
+                        <label for="disable-leap-checkbox" class="black-text">Disable Leap</label>   
+                    </div>
+                </div>
+            </nav>
     	    <div class="section">
     	    	<div class="container">
     	    		<h1 class="header center blue-text text-darken-2">Oculus 3D Grapher</h1>
 
     				<ul class="collapsible" data-collapsible="accordion">
-    					<li>
+                        <li>
     					  	<div class="collapsible-header">Rectangular Prism</div>
     					  	<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p>
     					  	</div>
