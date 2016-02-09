@@ -1,4 +1,11 @@
 function findRightSurface() {
+    $(".collapsible-body").filter(function(i)
+    {
+     return i.css("display") === "none"
+    })
+    arr = jQuery.grep($(".collapsible-body"), function( i ) {
+      return i !== "none";
+    });
     if(document.getElementById("torusa").value!='')
         run(torus(document.getElementById("torusa").value, document.getElementById("torusc").value));
     else if(document.getElementById("conea").value!='')
