@@ -9,6 +9,8 @@ function findRightSurface() {
         run(trumpet(document.getElementById("trumpeta").value, document.getElementById("trumpetb").value));
     else if(document.getElementById("mobiusa").value!='')
         run(mobius(document.getElementById("mobiusa").value, document.getElementById("mobiusa").value)) //fix this
+    else if(document.getElementById("custom-equation-textbox").value!='')
+        getCustomEquation();
 }
 function run(surfaceData) {
     var camera, scene, renderer;
