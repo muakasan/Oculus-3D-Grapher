@@ -1,10 +1,40 @@
 function findRightSurface() {
-    $($.grep($(".collapsible-body"), function( i ) {      
-    return $(i).css("display") !== "none";
-        })[0]).prev().html();
     
-    if(document.getElementById("torusa").value!='')
-        run(torus(document.getElementById("torusa").value, document.getElementById("torusc").value));
+    var headerDivValue = $($.grep($(".collapsible-body"), function( i ) {      
+            return $(i).css("display") !== "none";
+        })[0]).prev().html();
+
+    switch(headerDivValue)
+    {
+        case "Torus":
+            run(torus($("#torusa").val(), $("#torusc").val()));
+            break;
+        case "Cone":
+            break;
+        case "Ellipsoid":
+            break;
+        case "Plane":
+            break;
+        case "Cylinder":
+            break;
+        case "Trumpet":
+            break;
+        case "Mobius Band":
+            break;
+        case "Hyperboloid of One Sheet":
+            break;
+        case "Hyperboloid of Two Sheets":
+            break;
+        case "Elliptic Paraboloid":
+            break;
+        case "Hyperbolic Paraboloid":
+            break;
+        case "Custom Equation":
+            runCustomEquation();
+            break;
+    }
+
+
     else if(document.getElementById("conea").value!='')
         run(cone(document.getElementById("conea").value, document.getElementById("coneb").value,document.getElementById("conec").value));
     else if(document.getElementById("ellipa").value!='')
