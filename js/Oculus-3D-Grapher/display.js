@@ -1,11 +1,8 @@
 function findRightSurface() {
-    $(".collapsible-body").filter(function(i)
-    {
-     return i.css("display") === "none"
-    })
-    arr = jQuery.grep($(".collapsible-body"), function( i ) {
-      return i !== "none";
-    });
+    $($.grep($(".collapsible-body"), function( i ) {      
+    return $(i).css("display") !== "none";
+        })[0]).prev().html();
+    
     if(document.getElementById("torusa").value!='')
         run(torus(document.getElementById("torusa").value, document.getElementById("torusc").value));
     else if(document.getElementById("conea").value!='')
@@ -13,10 +10,22 @@ function findRightSurface() {
     else if(document.getElementById("ellipa").value!='')
         run(ellipsoid(document.getElementById("ellipa").value, document.getElementById("ellipb").value,document.getElementById("ellipc").value));
     else if(document.getElementById("trumpeta").value!='')
-        run(trumpet(document.getElementById("trumpeta").value, document.getElementById("trumpetb").value));
+        run(trumpet(document.getElementById("trumpeta").value));//fix this?
     else if(document.getElementById("mobiusa").value!='')
-        run(mobius(document.getElementById("mobiusa").value, document.getElementById("mobiusa").value)) //fix this
-    else if(document.getElementById("custom-equation-textbox").value!='')
+        run(mobius(document.getElementById("mobiusa").value)); //fix this //done I think
+    else if(document.getElementById("hypera").value!='')
+        run(hyperboloidOne(document.getElementById("hypera").value, document.getElementById("hyperb").value, document.getElementById("hyperc").value));
+    else if(document.getElementById("hypera2").value!='')
+        run(hyperboloidTwo(document.getElementById("hypera2").value, document.getElementById("hyperb2").value));
+    else if(document.getElementById("paraba").value!='')
+        run(paraboloid(document.getElementById("paraba").value, document.getElementById("parabb").value)); //also fix this //done!
+    else if(document.getElementById("paraba2").value!='')
+        run(hyperbolicParaboloid(document.getElementById("paraba2").value, document.getElementById("parabb2").value)); //and this. definitely fix this.
+    else if(document.getElementById("cylina").value!='')
+        run(cylinder(document.getElementById("cylina").value, document.getElementById("cylinb").value));
+    else if(document.getElementById("planea").value!='')
+        run(plane(document.getElementById("planea").value, document.getElementById("planeb").value, document.getElementById("planec").value, document.getElementById("planed").value));
+}
         getCustomEquation();
 }
 function run(surfaceData) {

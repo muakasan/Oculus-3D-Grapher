@@ -38,7 +38,7 @@ function paraboloid(a,b) {
 
 function hyperboloidTwo(a,b,c) {
     return function(u,v)  {
-        var x = a*Math.sinh(2*Math.PI*fu)*Math.cos(2*Math.PI*v)*100;
+        var x = a*Math.sinh(2*Math.PI*u)*Math.cos(2*Math.PI*v)*100;
         var y = a*Math.sinh(2*Math.PI*u)*Math.sin(2*Math.PI*v)*100;
         var z = c*Math.cosh(2*Math.PI*u)*100;
         return new THREE.Vector3(x,y,z);
@@ -67,20 +67,47 @@ function shell(a,b,c) {
     }
 }
 
-function trumpet(a,b) {
+function trumpet(a) {
     return function(u,v) {  
         var x = u*100;
         var y = a*Math.cos(2*Math.PI*v)/u*100;
-        var z = b*Math.sin(2*Math.PI*v)/u*100;
+        var z = a*Math.sin(2*Math.PI*v)/u*100;
         return new THREE.Vector3(x,y,z);
     }
 }
 
-function mobius(a,b) {
+function mobius(a) {
     return function(u,v) {
         var x = (a+v*Math.cos(0.5*2*Math.PI*u))*Math.cos(2*Math.PI*u);
-        var y = (b+v*Math.sin(0.5*2*Math.PI*u))*Math.cos(2*Math.PI*u);
+        var y = (a+v*Math.sin(0.5*2*Math.PI*u))*Math.cos(2*Math.PI*u);
         var z = v*Math.sin(0.5*2*Math.PI*u);
+        return new THREE.Vector3(x,y,z);
+    }
+}
+
+function hyperbolicParaboloid(a,b) {
+    return function(u,v) {
+        var x = u*100;
+        var y = v*100;
+        var z = u*v*100;
+        return new THREE.Vector3(x,y,z);
+    }
+}
+
+function cylinder(a,b) {
+    return function(u,v) {
+        var x = a*Math.cos(2*Math.PI*v)*100;
+        var y = b*Math.sin(2*Math.PI*v)*100;
+        var z = u*100;
+        return new THREE.Vector3(x,y,z);
+    }
+}
+
+function plane(a,b,c,d) {
+    return function(u,v) {
+        var x = u*100;
+        var y = v*100;
+        var z = (d-a*u-b*v)/c * 100;
         return new THREE.Vector3(x,y,z);
     }
 }
