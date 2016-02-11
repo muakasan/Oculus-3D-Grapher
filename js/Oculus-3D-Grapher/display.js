@@ -108,7 +108,7 @@ function run(surfaceData) {
         parGeometry = new THREE.ParametricGeometry(surfaceData, 100, 100);
         parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
-        var surface = new THREE.Mesh(parGeometry, parMaterial);
+        surface = new THREE.Mesh(parGeometry, parMaterial);
 
         scene.add(surface);
         objects.push(surface);
