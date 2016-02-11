@@ -10,31 +10,41 @@ function findRightSurface() {
             run(torus($("#torusa").val(), $("#torusc").val()));
             break;
         case "Cone":
+            run(cone($("#conea").val(), $("#coneb").val(), $("#conec").val()));
             break;
         case "Ellipsoid":
+            run(ellipsoid($("#ellipa").val(), $("#ellipb").val(), $("#ellipc").val()));
             break;
         case "Plane":
+            run(plane($("#planea").val(), $("#planeb").val(), $("#planec").val(), $("#planed").val()));
             break;
         case "Cylinder":
+            run(cylinder($("#cylina").val(), $("#cylinb").val()));
             break;
         case "Trumpet":
+            run(trumpet($("#trumpeta").val()));
             break;
         case "Mobius Band":
+            run(mobius($("#mobiusa").val()));
             break;
         case "Hyperboloid of One Sheet":
+            run(hyperboloidOne($("#hypera").val(), $("#hyperb").val(), $("#hyperc").val()));
             break;
         case "Hyperboloid of Two Sheets":
+            run(hyperboloidTwo($("#hypera2").val(), $("#hyperb2").val()));
             break;
         case "Elliptic Paraboloid":
+            run(ellipsoid($("#ellipa").val(), $("#ellipb").val(), $("#ellipc").val()));
             break;
         case "Hyperbolic Paraboloid":
+            run(hyperbolicParaboloid($("#paraba2").val(), $("#parabb2").val()));
             break;
         case "Custom Equation":
             runCustomEquation();
             break;
     }
 
-
+/*
     else if(document.getElementById("conea").value!='')
         run(cone(document.getElementById("conea").value, document.getElementById("coneb").value,document.getElementById("conec").value));
     else if(document.getElementById("ellipa").value!='')
@@ -56,7 +66,7 @@ function findRightSurface() {
     else if(document.getElementById("planea").value!='')
         run(plane(document.getElementById("planea").value, document.getElementById("planeb").value, document.getElementById("planec").value, document.getElementById("planed").value));
 }
-        getCustomEquation();
+        getCustomEquation();*/
 }
 function run(surfaceData) {
     var camera, scene, renderer;
