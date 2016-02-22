@@ -47,10 +47,10 @@ function hyperboloidTwo(a,b,c) {
 
 function torus(a,c) { 
     return function(u,v) {
-        var x = (c+a*Math.cos(2*Math.PI*v))*Math.cos(Math.PI*u);
+        var x = (c+a*Math.cos(Math.PI*v))*Math.cos(Math.PI*u);
 
-        var y = (c+a*Math.cos(2*Math.PI*v))*Math.sin(Math.PI*u);
-        var z = a*Math.sin(2*Math.PI*v);
+        var y = (c+a*Math.cos(Math.PI*v))*Math.sin(Math.PI*u);
+        var z = a*Math.sin(Math.PI*v);
         //var x = a*Math.cos(2*Math.PI*u)+b*Math.cos(2*Math.PI*v)*Math.cos(2*Math.PI*u)*100;
         //var y = c*Math.sin(2*Math.PI*u)+d*Math.cos(2*Math.PI*v)*Math.sin(2*Math.PI*u)*100;
         //var z = e*Math.sin(2*Math.PI*v)*100;
