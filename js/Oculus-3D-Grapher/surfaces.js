@@ -51,14 +51,14 @@ function torus(a,c) {
 
         var y = (c+a*Math.cos(0.5*Math.PI*v+0.5*Math.PI))*Math.sin(Math.PI*u);
         var z = a*Math.sin(0.5*Math.PI*v+0.5*Math.PI);*/
-        var x = a*Math.cos(2*Math.PI*u)+b*Math.cos(2*Math.PI*v)*Math.cos(2*Math.PI*u)*100;
+       /*var x = a*Math.cos(2*Math.PI*u)+b*Math.cos(2*Math.PI*v)*Math.cos(2*Math.PI*u)*100;
         var y = c*Math.sin(2*Math.PI*u)+d*Math.cos(2*Math.PI*v)*Math.sin(2*Math.PI*u)*100;
-        var z = e*Math.sin(2*Math.PI*v)*100;
+        var z = e*Math.sin(2*Math.PI*v)*100;*/
         
-       /* var x = (c+a*Math.cos(2*Math.PI*v))*Math.cos(2*Math.PI*u);
+        var x = (c+a*Math.cos(2*Math.PI*v))*Math.cos(2*Math.PI*u)*100;
 
-        var y = (c+a*Math.cos(0.5*Math.PI*v+0.5*Math.PI))*Math.sin(Math.PI*u);
-        var z = a*Math.sin(0.5*Math.PI*v+0.5*Math.PI);*/
+        var y = (c+a*Math.cos(2*Math.PI*v))*Math.sin(2*Math.PI*u)*100;
+        var z = a*Math.sin(2*Math.PI*v)*100;
         return new THREE.Vector3(x,y,z);
     }
 }
