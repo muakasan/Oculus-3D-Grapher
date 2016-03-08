@@ -191,26 +191,38 @@
             console.log(tabs);
             var controller = Leap.loop({enableGestures: true}, function(frame){
             });
+            var executing = false;
 
             controller.on("gesture", function(gesture){
                 if(gesture.type === "swipe")
-                {   
-                    if(gesture.state === "stop")
+                { 
+                    if(!executing)
                     {
+                        executing = true;
+                        window.setTimeout(function(){
+                            executing = false;
+                        }, 300);
                         var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
                         if(isHorizontal)
                         {
                             if(gesture.direction[0] > 0){
 
-                                curTab++;
-                                $(tabs[curTab%tabs.length]).trigger("click");
+                                curTab = (curTab+1)%tabs.length;
+                                $(tabs[curTab]).trigger("click");
                                 console.log("right");
                             } 
                             else {
+                                curTab = (curTab-1+tabs.length)%tabs.length;
+                                $(tabs[curTab]).trigger("click");
                                 console.log("left");
                             }
                         }
                     }
+                }
+                  
+                else if(gesture.type === "keyTap")
+                {
+                    console.log("picked graph");
                 }
               //... handle gesture object
             });
