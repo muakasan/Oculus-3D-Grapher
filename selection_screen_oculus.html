@@ -1,0 +1,198 @@
+<html>
+    <head>
+		<!--Import Google Icon Font-->
+	  	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     	<!--Import materialize.css-->
+    	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--<script src="js/vr.js"></script>
+        <script src="js/leap-0.6.4.js"></script>
+        <script src="js/three.js"></script>
+        <script src="js/controls/OculusRiftControls.js"></script>
+        <script src="js/effects/OculusRiftEffect.js"></script>
+        <script src="js/Oculus-3D-Grapher/surfaces.js"></script>
+        <script src="js/Oculus-3D-Grapher/display.js"></script>
+        <script src="js/Oculus-3D-Grapher/customequation.js"></script>-->
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+        <script src="js/three2.js"></script>
+        <script src="js/TrackballControls.js"></script>
+        <script src="js/CSS3DRenderer.js"></script>
+        <script src="js/vr2.js"></script>
+        <script src="js/vrhtml.js"></script>
+
+    </head>
+
+    <body>
+        <div id="menu-div" style='-webkit-transform-style: preserve-3d;'>
+        	<nav class="light-blue">
+                <div class="nav-wrapper" style="padding: 15px;">
+                    <div class="chip right">
+                        <input type="checkbox" class="filled-in" id="disable-leap-checkbox"/>
+                        <label for="disable-leap-checkbox" class="black-text" style="position: relative; top: 5px;" >Disable Leap</label>   
+                    </div>
+                </div>
+            </nav>
+    	    <div class="section">
+    	    	<div class="container">
+    	    		<h1 class="header center blue-text text-darken-2">Oculus 3D Grapher</h1>
+
+    				<ul class="collapsible" data-collapsible="accordion">
+    					<li>
+    					 	<div class="collapsible-header">Torus</div>
+    					  	<div class="collapsible-body">
+    					  		<p>
+    					  			$$x=(c+a\cos{v})\cos{u} \\
+    					  			y=(c+a\cos{v})\sin(u) \\
+    					  			z=a\sin(v)\\$$
+
+    					  		</p>
+    					  		<p>a: <input type="text" name="torusa" id="torusa"><br></p>
+    					  		<p>c: <input type="text" name="torusc" id="torusc"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Cone</div>
+    					  	<div class="collapsible-body">					  	
+    						  	<p>
+    							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2}= \frac{z^2}{c^2}$$
+    						  	</p>
+    						  	<p>a: <input type="text" name="conea" id="conea"><br></p>
+    						  	<p>b: <input type="text" name="coneb" id="coneb"><br></p>
+    						  	<p>c: <input type="text" name="conec" id="conec"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Ellipsoid</div>
+    					  	<div class="collapsible-body">
+    						  	<p>
+    							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2}= 1$$
+    						  	</p>
+    						  	<p>a: <input type="text" name="ellipa" id="ellipa"><br></p>
+    						  	<p>b: <input type="text" name="ellipb" id="ellipb"><br></p>
+    						  	<p>c: <input type="text" name="ellipc" id="ellipc"><br></p>
+    					  	</div>
+    					</li>
+                        <li>
+                            <div class="collapsible-header">Plane</div>
+                            <div class="collapsible-body">
+                                <p>
+                                    $$ax+by+cz=d$$
+                                </p>
+                                <p>a: <input type="text" name="planea" id="planea"><br></p>
+                                <p>b: <input type="text" name="planeb" id="planeb"><br></p>
+                                <p>c: <input type="text" name="planec" id="planec"><br></p>
+                                <p>d: <input type="text" name="planed" id="planed"><br></p>
+                            </div>
+                        </li>
+    					<li>
+    					  	<div class="collapsible-header">Cylinder</div>
+    					  	<div class="collapsible-body">					  	
+    						  	<p>
+    							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2}= 1$$
+    						  	</p>
+    						  	<p>a: <input type="text" name="cylina" id="cylina"><br></p>
+    						  	<p>b: <input type="text" name="cylinb" id="cylinb"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Trumpet</div>
+    					  	<div class="collapsible-body">
+    					  		<p>
+    					  			$$x=u\\
+    					  			y=\frac{a\cos{v}}{u}\\
+    					  			z=\frac{a\sin{v}}{u}$$
+    					  		</p>
+    					  		<p>a: <input type="text" name="trumpeta" id="trumpeta"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Mobius Band</div>
+    					  	<div class="collapsible-body">
+    					  		<p>
+    					  			$$x=(a+u\cos{\frac{1}{2}v})\cos{v}\\
+    					  			y=(a+u\cos{\frac{1}{2}v})\sin{v}\\
+    					  			z=u\sin{\frac{1}{2}v}$$
+
+    					  		</p>
+    					  		<p>a: <input type="text" name="mobiusa" id="mobiusa"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Hyperboloid of One Sheet</div>
+    					  	<div class="collapsible-body">
+    						  	<p>					  	
+    							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2}= 1$$
+    							</p>
+    							<p>a: <input type="text" name="hypera" id="hypera"><br></p>
+    					  		<p>b: <input type="text" name="hyperb" id="hyperb"><br></p>
+    					  		<p>c: <input type="text" name="hyperc" id="hyperc"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Hyperboloid of Two Sheets</div>
+    					  	<div class="collapsible-body">
+    						  	<p>					  	
+    							  	$$-\frac{x^2}{a^2} - \frac{y^2}{b^2} + \frac{z^2}{c^2}= 1$$
+    							</p>
+    							<p>a: <input type="text" name="hypera2" id="hypera2"><br></p>
+    					  		<p>b: <input type="text" name="hyperb2" id="hyperb2"><br></p>
+    					  		<p>c: <input type="text" name="hyperc2" id="hyperc2"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Elliptic Paraboloid</div>
+    					  	<div class="collapsible-body">
+    						  	<p>					  	
+                                    $$\frac{x^2}{a^2} + \frac{y^2}{b^2} = z$$ 
+    							<p>a: <input type="text" name="paraba" id="paraba"><br></p>
+    					  		<p>b: <input type="text" name="parabb" id="parabb"><br></p>
+    					  		<p>c: <input type="text" name="parabc" id="parabc"><br></p>
+    					  	</div>
+    					</li>
+    					<li>
+    					  	<div class="collapsible-header">Hyperbolic Paraboloid</div>
+    					  	<div class="collapsible-body">
+    						  	<p>					  	
+                                    $$\frac{x^2}{a^2} - \frac{y^2}{b^2} = c$$ 
+    							</p>
+    							<p>a: <input type="text" name="paraba2" id="paraba2"><br></p>
+    					  		<p>b: <input type="text" name="parabb2" id="parabb2"><br></p>
+    					  		<p>c: <input type="text" name="parabc2" id="parabc2"><br></p>
+    					  	</div>
+    					</li>
+                        <li>
+                            <div class="collapsible-header">Custom Equation</div>
+                            <div class="collapsible-body">
+                                <p>                     
+                                    Insert your own custom equation:
+                                </p>
+                                <p>
+                                    This function will be called multiple times to produce multiple vectors to produce a surface. 
+                                    It takes in 2 parametric variables u and v which both will range from 0 to 1 and return multiple points/vectors.
+                                </p>
+                                <pre class="prettyprint lang-js">
+                                function(u, v){                                
+                                    <textarea placeholder="Your Code goes here" id="custom-equation-textbox"></textarea>
+                                    return new THREE.Vector3(x, y, z);
+                                }
+                                </pre>
+                            </div>
+                        </li>
+    				</ul>
+    	    		<br>
+    	    		<div class="row center">
+    	    			<button class="col s4 btn-large offset-s4 light-blue lighten-2" onclick="findRightSurface()">View Graph</button>
+    	    		</div>
+    	    	</div>
+            </div>
+		</div>
+        <script>
+            document.body.onload = window.vrhtml.startWithoutNPVR("menu-div");
+        </script>
+    </body>
+</html>

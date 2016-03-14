@@ -63,10 +63,10 @@
 </head>
 <body style="padding-right:0px;padding-left:0px;">
 
-<script src="libs/three.js"></script>
-<script src="libs/TrackballControls.js"></script>
-<script src="libs/CSS3DRenderer.js"></script>
-<script src="libs/vr.js"></script>
+<script src="js/three2.js"></script>
+<script src="js/TrackballControls.js"></script>
+<script src="js/CSS3DRenderer.js"></script>
+<script src="js/vr2.js"></script>
 <script src="js/vrhtml.js"></script>
 
 
@@ -108,10 +108,10 @@
 
     // Two options to start:
     // If you do not have the 'npvr' vr.js plugin in your browser: https://github.com/benvanik/vr.js
-    //document.body.onload = window.vrhtml.startWithoutNPVR("htmlModelPrototype");
+    document.body.onload = window.vrhtml.startWithoutNPVR("htmlModelPrototype");
 
     // If you DO have the vr.js plugin in your browser.
-    vrhtml.start("htmlModelPrototype");
+    //vrhtml.start("htmlModelPrototype");
 </script>
 
 </body>
