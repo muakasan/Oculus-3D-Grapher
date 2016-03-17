@@ -191,10 +191,14 @@
     <div id="right-half">
     </div>
     <script type="text/javascript">
+
     $("#right-half").append($("#left-half").clone());
-    $("#right-half").css("width", "50%");
     //$("#right-half").css("display", "inline");
-    $("#left-half").css("width", "50%");
+    $("body").append($("<table>").append(
+    $("<tr>").append(
+        $("<td>").append($("#left-half")),
+        $("<td>").append($("#right-half"))
+        )));
     </script>
     </body>
 </html>
