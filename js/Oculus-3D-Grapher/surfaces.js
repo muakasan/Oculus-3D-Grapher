@@ -57,6 +57,8 @@ function torus(a,c) {
     return function(u,v) {
         u=u-0.5;
         v=v-0.5;
+
+ 
         /*var x = (c+a*Math.cos(0.5*Math.PI*v+0.5*Math.PI))*Math.cos(Math.PI*u);
 
         var y = (c+a*Math.cos(0.5*Math.PI*v+0.5*Math.PI))*Math.sin(Math.PI*u);
