@@ -13,12 +13,25 @@
         <script src="js/vr.js"></script>
         <script src="js/leap-0.6.4.js"></script>
         <script src="js/three.js"></script>
-        <script src="js/controls/OculusRiftControls.js"></script>
+        <script src="js/controls/OculusRiftControls2.js"></script>
+        <script src = "js/controls/OculusRiftControls.js"></script>
         <script src="js/effects/OculusRiftEffect.js"></script>
         <script src="js/Oculus-3D-Grapher/surfaces.js"></script>
         <script src="js/Oculus-3D-Grapher/display.js"></script>
         <script src="js/Oculus-3D-Grapher/customequation.js"></script>
         <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
     </head>
 
     <body>
@@ -45,8 +58,9 @@
     					  			z=a\sin(v)\\$$
 
     					  		</p>
-    					  		<p>a: <input type="text" name="torusa" id="torusa"><br></p>
-    					  		<p>c: <input type="text" name="torusc" id="torusc"><br></p>
+                                <img src="img/torus.png" height=100 width=100 align="top">
+    					  		<p>a: <input type="text" name="torusa" id="torusa" value=1><br></p>
+    					  		<p>c: <input type="text" name="torusc" id="torusc" value=1><br></p>
     					  	</div>
     					</li>
     					<li>
@@ -54,10 +68,12 @@
     					  	<div class="collapsible-body">					  	
     						  	<p>
     							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2}= \frac{z^2}{c^2}$$
+                                    <img src = "img/cone.png" height=100 width=100 align = "top">
     						  	</p>
-    						  	<p>a: <input type="text" name="conea" id="conea"><br></p>
-    						  	<p>b: <input type="text" name="coneb" id="coneb"><br></p>
-    						  	<p>c: <input type="text" name="conec" id="conec"><br></p>
+
+    						  	<p>a: <input type="text" name="conea" id="conea" value="1"><br></p>
+    						  	<p>b: <input type="text" name="coneb" id="coneb" value="1"><br></p>
+    						  	<p>c: <input type="text" name="conec" id="conec" value="2"><br></p>
     					  	</div>
     					</li>
     					<li>
@@ -66,9 +82,10 @@
     						  	<p>
     							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2}= 1$$
     						  	</p>
-    						  	<p>a: <input type="text" name="ellipa" id="ellipa"><br></p>
-    						  	<p>b: <input type="text" name="ellipb" id="ellipb"><br></p>
-    						  	<p>c: <input type="text" name="ellipc" id="ellipc"><br></p>
+                                <img src="img/sphere.png" height=100 width=100 align="top">
+    						  	<p>a: <input type="text" name="ellipa" id="ellipa" value=1><br></p>
+    						  	<p>b: <input type="text" name="ellipb" id="ellipb" value=1><br></p>
+    						  	<p>c: <input type="text" name="ellipc" id="ellipc" value=1><br></p>
     					  	</div>
     					</li>
                         <li>
@@ -77,10 +94,11 @@
                                 <p>
                                     $$ax+by+cz=d$$
                                 </p>
-                                <p>a: <input type="text" name="planea" id="planea"><br></p>
-                                <p>b: <input type="text" name="planeb" id="planeb"><br></p>
-                                <p>c: <input type="text" name="planec" id="planec"><br></p>
-                                <p>d: <input type="text" name="planed" id="planed"><br></p>
+                                <img src="img/plane.png" height=100 width=100 align="top">
+                                <p>a: <input type="text" name="planea" id="planea" value=1><br></p>
+                                <p>b: <input type="text" name="planeb" id="planeb" value=2><br></p>
+                                <p>c: <input type="text" name="planec" id="planec" value=3><br></p>
+                                <p>d: <input type="text" name="planed" id="planed" value=4><br></p>
                             </div>
                         </li>
     					<li>
@@ -89,23 +107,25 @@
     						  	<p>
     							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2}= 1$$
     						  	</p>
-    						  	<p>a: <input type="text" name="cylina" id="cylina"><br></p>
-    						  	<p>b: <input type="text" name="cylinb" id="cylinb"><br></p>
+                                <img src="img/cylinder.png" height=100 width=100 align="top">
+    						  	<p>a: <input type="text" name="cylina" id="cylina" value=1><br></p>
+    						  	<p>b: <input type="text" name="cylinb" id="cylinb" value=1><br></p>
     					  	</div>
     					</li>
     					<li>
-    					  	<div class="collapsible-header">Trumpet</div>
+    					  	<div class="collapsible-header">Gabriel's Horn</div>
     					  	<div class="collapsible-body">
     					  		<p>
     					  			$$x=u\\
     					  			y=\frac{a\cos{v}}{u}\\
     					  			z=\frac{a\sin{v}}{u}$$
     					  		</p>
-    					  		<p>a: <input type="text" name="trumpeta" id="trumpeta"><br></p>
+                                <img src="img/horn.png" height=100 width=100 align="top">
+    					  		<p>a: <input type="text" name="trumpeta" id="trumpeta" value=0.01><br></p>
     					  	</div>
     					</li>
     					<li>
-    					  	<div class="collapsible-header">Mobius Band</div>
+    					  	<div class="collapsible-header">Mobius Band</div> <!--This one, the torus, both hyperboloids, and the hyperbolic paraboloid are broken. -->
     					  	<div class="collapsible-body">
     					  		<p>
     					  			$$x=(a+u\cos{\frac{1}{2}v})\cos{v}\\
@@ -122,9 +142,10 @@
     						  	<p>					  	
     							  	$$\frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2}= 1$$
     							</p>
-    							<p>a: <input type="text" name="hypera" id="hypera"><br></p>
-    					  		<p>b: <input type="text" name="hyperb" id="hyperb"><br></p>
-    					  		<p>c: <input type="text" name="hyperc" id="hyperc"><br></p>
+                                <img src="img/hyper1.png" height=100 width=100 align="top">
+    							<p>a: <input type="text" name="hypera" id="hypera" value=1><br></p>
+    					  		<p>b: <input type="text" name="hyperb" id="hyperb" value=1><br></p>
+    					  		<p>c: <input type="text" name="hyperc" id="hyperc" value=1><br></p>
     					  	</div>
     					</li>
     					<li>
@@ -143,9 +164,11 @@
     					  	<div class="collapsible-body">
     						  	<p>					  	
                                     $$\frac{x^2}{a^2} + \frac{y^2}{b^2} = z$$ 
-    							<p>a: <input type="text" name="paraba" id="paraba"><br></p>
-    					  		<p>b: <input type="text" name="parabb" id="parabb"><br></p>
-    					  		<p>c: <input type="text" name="parabc" id="parabc"><br></p>
+                                </p>
+                                <img src="img/parab.png" height=100 width=100 align="top">
+    							<p>a: <input type="text" name="paraba" id="paraba" value=1><br></p>
+    					  		<p>b: <input type="text" name="parabb" id="parabb" value=2><br></p>
+    					  		<p>c: <input type="text" name="parabc" id="parabc" value=1><br></p>
     					  	</div>
     					</li>
     					<li>
@@ -154,9 +177,10 @@
     						  	<p>					  	
                                     $$\frac{x^2}{a^2} - \frac{y^2}{b^2} = c$$ 
     							</p>
-    							<p>a: <input type="text" name="paraba2" id="paraba2"><br></p>
-    					  		<p>b: <input type="text" name="parabb2" id="parabb2"><br></p>
-    					  		<p>c: <input type="text" name="parabc2" id="parabc2"><br></p>
+                                <img src="img/hyperbolicparaboloid.png" height=100 width=100 align="top">
+    							<p>a: <input type="text" name="paraba2" id="paraba2" value=1><br></p>
+    					  		<p>b: <input type="text" name="parabb2" id="parabb2" value=1><br></p>
+    					  		<p>c: <input type="text" name="parabc2" id="parabc2" value=1><br></p>
     					  	</div>
     					</li>
                         <li>

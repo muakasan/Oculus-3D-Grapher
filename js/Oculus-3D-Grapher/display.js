@@ -7,7 +7,7 @@ function findRightSurface() {
     switch(headerDivValue)
     {
         case "Torus":
-            run(torus($("#torusa").val(), $("#torusc").val()));
+            run(5);
             break;
         case "Cone":
             run(cone($("#conea").val(), $("#coneb").val(), $("#conec").val()));
@@ -21,7 +21,7 @@ function findRightSurface() {
         case "Cylinder":
             run(cylinder($("#cylina").val(), $("#cylinb").val()));
             break;
-        case "Trumpet":
+        case "Gabriel's Horn":
             run(trumpet($("#trumpeta").val()));
             break;
         case "Mobius Band":
@@ -34,10 +34,10 @@ function findRightSurface() {
             run(hyperboloidTwo($("#hypera2").val(), $("#hyperb2").val()));
             break;
         case "Elliptic Paraboloid":
-            run(ellipsoid($("#ellipa").val(), $("#ellipb").val(), $("#ellipc").val()));
+            run(paraboloid($("#paraba").val(), $("#parabb").val(), $("#parabc").val()));
             break;
         case "Hyperbolic Paraboloid":
-            run(hyperbolicParaboloid($("#paraba2").val(), $("#parabb2").val()));
+            run(hyperbolicParaboloid($("#paraba2").val(), $("#parabb2").val(), $("#parabc2").val()));
             break;
         case "Custom Equation":
             runCustomEquation();
@@ -82,6 +82,21 @@ function run(surfaceData) {
     var cube;
     var surface;
 
+    var moveForward = false;
+    var moveBackward = false;
+    var moveLeft = false;
+    var moveRight = false;
+
+    var moveUp = false;
+    var moveDown = false;
+
+    var rotateLeft = false;
+    var rotateRight = false;
+    var rotateUp = false;
+    var rotateDown = false;
+    var tiltLeft = false;
+    var tiltRight = false;
+
     vr.load(function(error) {
         if (error) {
             //statusEl.innerText = 'Plugin load failed: ' + error.toString();
@@ -96,6 +111,7 @@ function run(surfaceData) {
         }*/
     });
     function init() {
+        bindKeys();
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
         scene = new THREE.Scene();
 
@@ -105,7 +121,11 @@ function run(surfaceData) {
         ray = new THREE.Raycaster();
         ray.ray.direction.set( 0, -1, 0 );
 
-        parGeometry = new THREE.ParametricGeometry(surfaceData, 100, 100);
+        parGeometry = null;
+        if(surfaceData==5)
+            parGeometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        else
+            parGeometry = new THREE.ParametricGeometry(surfaceData, 100, 100);
         parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
 
         surface = new THREE.Mesh(parGeometry, parMaterial);
@@ -143,16 +163,53 @@ function run(surfaceData) {
         if(intersections.length>0) {
             var distance = intersections[0].distance;
             if(distance>0 && distance<10) {
-                controls.isOnObject(true);
+                //controls.isOnObject(true);
             }
         }
 
         var polled = vr.pollState(vrstate);
-        controls.update(Date.now() - time, polled ? vrstate: null);
+        //controls.update(Date.now() - time, polled ? vrstate: null);
 
-        effect.render(scene, camera, polled ? vrstate : null);
+        
 
         time = Date.now();
+        //camera.position.z+=100;
+        //console.log(camera.position.z);
+        if(moveUp) { //actually moves forward :/
+            console.log("x: ", camera.rotation.x, " y: ", camera.rotation.y, " z: ", camera.rotation.z);
+            //var theta = camera.rotation.z;
+            //var phi = camera.rotation.
+            camera.position.z+=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
+            camera.position.y-=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
+            camera.position.x-=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
+        }
+        if(moveDown) {
+            //camera.position.z-=10;
+            camera.position.z-=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
+            camera.position.y+=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
+            camera.position.x+=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
+        }
+        if(moveLeft)
+            camera.position.x-=10;
+        if(moveRight)
+            camera.position.x+=10;
+        if(moveForward)
+            camera.position.y+=10;
+        if(moveBackward)
+            camera.position.y-=10;
+        if(rotateLeft)
+            camera.rotation.y+=Math.PI/36;
+        if(rotateRight)
+            camera.rotation.y-=Math.PI/36;
+        if(rotateUp)
+            camera.rotation.x+=Math.PI/36;
+        if(rotateDown)
+            camera.rotation.x-=Math.PI/36;
+        if(tiltLeft)
+            camera.rotation.z+=Math.PI/36;
+        if(tiltRight)
+            camera.rotation.z-=Math.PI/36;
+        effect.render(scene, camera, polled ? vrstate : null);
     }
 
     function animateWithLeap() {
@@ -186,5 +243,137 @@ function run(surfaceData) {
             animateNoLeap();
 
         }
+    }
+
+    function bindKeys() {
+        var onKeyDown = function ( event ) {
+
+            switch ( event.keyCode ) {
+
+                //case 38: // up
+                case 87: // w
+                    moveForward = true;
+                    break;
+
+                //case 37: // left
+                case 65: // a
+                    moveLeft = true; 
+                    break;
+
+                //case 40: // down
+                case 83: // s
+                    moveBackward = true;
+                    break;
+
+                //case 39: // right
+                case 68: // d
+                    moveRight = true;
+                    break;
+
+                /*case 32: // space
+                    if ( canJump === true ) velocity.y += this.jumpSpeed;
+                    canJump = false;
+                    break;*/
+
+                case 81: //q
+                    moveUp = true;
+                    break;
+
+                case 69: //e
+                    moveDown = true;
+                    break;
+
+                case 73: //I
+                    rotateUp = true;
+                    break;
+
+                case 75: //K
+                    rotateDown = true;
+                    break;
+
+                case 74: //J
+                    rotateLeft = true;
+                    break;
+
+                case 76://L
+                    rotateRight = true;
+                    break;
+
+                case 85://U
+                    tiltRight = true;
+                    break;
+
+                case 79://O
+                    tiltLeft = true;
+                    break;
+
+            }
+
+        }
+
+        var onKeyUp = function ( event ) {
+
+            switch( event.keyCode ) {
+
+                //case 38: // up
+                case 87: // w
+                    moveForward = false;
+                    break;
+
+                //case 37: // left
+                case 65: // a
+                    moveLeft = false;
+                    break;
+
+                //case 40: // down
+                case 83: // a
+                    moveBackward = false;
+                    break;
+
+                //case 39: // right
+                case 68: // d
+                    moveRight = false;
+                    break;
+
+                case 81: //q
+                    moveUp = false;
+                    break;
+
+                case 69: //e
+                    moveDown = false;
+                    break;
+
+
+
+
+                 case 73: //I
+                    rotateUp = false;
+                    break;
+
+                case 75: //K
+                    rotateDown = false;
+                    break;
+
+                case 74: //J
+                    rotateLeft = false;
+                    break;
+
+                case 76://L
+                    rotateRight = false;
+                    break;
+
+                case 85://U
+                    tiltRight = false;
+                    break;
+
+                case 79://O
+                    tiltLeft = false;
+                    break;
+
+            }
+
+        }
+        document.addEventListener("keydown", onKeyDown, false);
+        document.addEventListener("keyup", onKeyUp, false);
     }
 }
