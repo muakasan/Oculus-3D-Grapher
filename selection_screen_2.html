@@ -26,12 +26,7 @@
 
         <div id="menu-div">
         	<nav class="light-blue">
-                <div class="nav-wrapper" style="padding: 15px;">
-                    <div class="chip right">
-                        <input type="checkbox" class="filled-in" id="disable-leap-checkbox"/>
-                        <label for="disable-leap-checkbox" class="black-text" style="position: relative; top: 5px;" >Disable Leap</label>   
-                    </div>
-                </div>
+               
             </nav>
     	    <div class="section">
     	    	<div class="container">
@@ -191,14 +186,71 @@
     <div id="right-half">
     </div>
     <script type="text/javascript">
+        $("#right-half").append($("#menu-div").clone());
+        //$("#right-half").css("display", "inline");
+        $("body").append($("<table>").append(
+        $("<tr>").append(
+            $("<td>").append($("#left-half")),
+            $("<td>").append($("#right-half"))
+            )));
 
-    $("#right-half").append($("#left-half").clone());
-    //$("#right-half").css("display", "inline");
-    $("body").append($("<table>").append(
-    $("<tr>").append(
-        $("<td>").append($("#left-half")),
-        $("<td>").append($("#right-half"))
-        )));
+        var curTab = 0;
+        var leftTabs = $("#left-half li div:first-child");
+        var rightTabs = $("#right-half li div:first-child");
+
+
+
+        console.log(leftTabs);
+        console.log(rightTabs);
+        $(document).ready(function() {
+            $(leftTabs[0]).trigger("click");
+            $(rightTabs[0]).trigger("click"); 
+            var controller = Leap.loop({enableGestures: true}, function(frame){
+            });
+            var executing = false;
+
+            controller.on("gesture", function(gesture){
+                if(gesture.type === "swipe")
+                { 
+                    if(!executing)
+                    {
+                        executing = true;
+                        window.setTimeout(function(){
+                            executing = false;
+                        }, 300);
+                        var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+                        if(isHorizontal)
+                        {
+                            if(gesture.direction[0] > 0){
+
+                                curTab = (curTab+1)%leftTabs.length;
+                                $(leftTabs[curTab]).trigger("click");
+                                $(rightTabs[curTab]).trigger("click");
+                                console.log("right");
+                            } 
+                            else {
+                                curTab = (curTab-1+leftTabs.length)%leftTabs.length;
+                                $(leftTabs[curTab]).trigger("click");
+                                $(rightTabs[curTab]).trigger("click");                                
+                                console.log("left");
+                            }
+                        }
+                    }
+                }
+                  
+                else if(gesture.type === "keyTap")
+                {
+                    console.log("picked graph");
+                }
+              //... handle gesture object
+            });
+        });
+
+
+        console.log("should do stuff");
+        /*
+        
+*/
     </script>
     </body>
 </html>
