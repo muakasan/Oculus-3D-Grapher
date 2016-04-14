@@ -145,7 +145,9 @@ function run(surfaceData) {
 
         
         document.body.appendChild( renderer.domElement );
-        $("#menu-div").hide();
+        $("#left-half").hide();
+        $("#right-half").hide();
+
         window.addEventListener("keydown", function(e) {
             // space and arrow keys
             if([32, 38, 40].indexOf(e.keyCode) > -1) {
@@ -236,15 +238,7 @@ function run(surfaceData) {
         iter();
     }
     function animate() {
-        if(!$("#disable-leap-checkbox").is(":checked"))
-        {
-            animateWithLeap();
-           
-        }
-        else {
-            animateNoLeap();
-
-        }
+        animateWithLeap();
     }
 
     function bindKeys() {
