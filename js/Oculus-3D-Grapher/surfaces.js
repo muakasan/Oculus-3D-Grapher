@@ -46,9 +46,9 @@ function hyperboloidTwo(a,b,c) {
         var y = a*Math.sinh(2*Math.PI*u)*Math.sin(2*Math.PI*v)*100;
         var z = c*Math.cosh(2*Math.PI*u)*100;
         return new THREE.Vector3(x,y,z);*/
-        /*var x = a*Math.sinh(2*Math.PI*u)*Math.cosh(2*Math.PI*v)*100;
+        var x = a*Math.sinh(2*Math.PI*u)*Math.cosh(2*Math.PI*v)*100;
         var y = b*Math.sinh(2*Math.PI*v)*100;
-        var z = c*Math.cosh(2*Math.PI*u)*Math.cosh(2*Math.PI*v)*100;*/
+        var z = c*Math.cosh(2*Math.PI*u)*Math.cosh(2*Math.PI*v)*100;
         return new THREE.Vector3(x,y,z);
     }
 }
