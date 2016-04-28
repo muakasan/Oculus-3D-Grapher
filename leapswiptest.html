@@ -1,0 +1,17 @@
+<script src="js/leap-0.6.4.js"></script>
+
+<script>
+    var controller = Leap.loop({enableGestures: true});
+    controller.on("gesture", function(gesture){
+                /*
+                if(gesture.type === "swipe")
+                { 
+                    console.log(gesture.direction)
+                }
+                */
+                if(gesture.type === "keyTap")
+                {
+                    console.log("hi")
+                }
+            });
+</script>

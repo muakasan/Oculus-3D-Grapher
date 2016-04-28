@@ -9,7 +9,7 @@ function findRightSurface() {
     switch(headerDivValue)
     {
         case "Torus":
-            run([$("#torusa").val(), $("#torusc").val()]);
+            run(5);
             break;
         case "Cone":
             run(cone($("#conea").val(), $("#coneb").val(), $("#conec").val()));
@@ -117,7 +117,6 @@ function run(surfaceData) {
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
         scene = new THREE.Scene();
 
-
         controls = new THREE.OculusRiftControls( camera );
         scene.add( controls.getObject() );
 
@@ -125,8 +124,8 @@ function run(surfaceData) {
         ray.ray.direction.set( 0, -1, 0 );
 
         parGeometry = null;
-        if(Array.isArray(surfaceData))
-            parGeometry = new THREE.TorusGeometry(parseInt(surfaceData[0]), parseInt(surfaceData[1])*2, 16, 100);
+        if(surfaceData==5)
+            parGeometry = new THREE.TorusGeometry(10, 3, 16, 100);
         else
             parGeometry = new THREE.ParametricGeometry(surfaceData, 100, 100);
         parMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe:true});
@@ -143,11 +142,12 @@ function run(surfaceData) {
             antialias: true
         });
         effect = new THREE.OculusRiftEffect(renderer);
-        camera.position.z=30;
-        camera.position.x=10;
+
         
         document.body.appendChild( renderer.domElement );
-        $("#menu-div").hide();
+        $("#left-half").hide();
+        $("#right-half").hide();
+
         window.addEventListener("keydown", function(e) {
             // space and arrow keys
             if([32, 38, 40].indexOf(e.keyCode) > -1) {
@@ -178,34 +178,29 @@ function run(surfaceData) {
 
         time = Date.now();
         //camera.position.z+=100;
-        console.log(camera.position.x, " ", camera.position.y, " ", camera.position.z);
-        if(moveForward) { //actually moves forward :/
-            //console.log("x: ", camera.rotation.x, " y: ", camera.rotation.y, " z: ", camera.rotation.z);
+        //console.log(camera.position.z);
+        if(moveUp) { //actually moves forward :/
+            console.log("x: ", camera.rotation.x, " y: ", camera.rotation.y, " z: ", camera.rotation.z);
             //var theta = camera.rotation.z;
             //var phi = camera.rotation.
-            var v = new THREE.Vector3(0,0,1);
-            //var newV = camera.worldToLocal(v);
-            //console.log(newV);
-            //var v = THREE.Vector3(0,1,0);
-            camera.translateZ(1);
-            //camera.position.z+=2*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            //camera.position.y-=5*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
-            //camera.position.x+=2*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
+            camera.position.z+=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
+            camera.position.y-=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
+            camera.position.x-=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
         }
-        if(moveBackward) {
+        if(moveDown) {
             //camera.position.z-=10;
-            camera.position.z-=2*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            //camera.position.y+=5*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
-            camera.position.x-=2*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
+            camera.position.z-=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
+            camera.position.y+=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
+            camera.position.x+=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
         }
         if(moveLeft)
-            camera.position.x-=5;
+            camera.position.x-=10;
         if(moveRight)
-            camera.position.x+=5;
-        if(moveUp)
-            camera.position.y+=5;
-        if(moveDown)
-            camera.position.y-=5;
+            camera.position.x+=10;
+        if(moveForward)
+            camera.position.y+=10;
+        if(moveBackward)
+            camera.position.y-=10;
         if(rotateLeft)
             camera.rotation.y+=Math.PI/36;
         if(rotateRight)
@@ -243,15 +238,7 @@ function run(surfaceData) {
         iter();
     }
     function animate() {
-        if(!$("#disable-leap-checkbox").is(":checked"))
-        {
-            animateWithLeap();
-           
-        }
-        else {
-            animateNoLeap();
-
-        }
+        animateWithLeap();
     }
 
     function bindKeys() {
@@ -260,8 +247,8 @@ function run(surfaceData) {
             switch ( event.keyCode ) {
 
                 //case 38: // up
-                /*case 87: // w
-                    moveUp = true;
+                case 87: // w
+                    moveForward = true;
                     break;
 
                 //case 37: // left
@@ -271,13 +258,13 @@ function run(surfaceData) {
 
                 //case 40: // down
                 case 83: // s
-                    moveDown = true;
+                    moveBackward = true;
                     break;
 
                 //case 39: // right
                 case 68: // d
                     moveRight = true;
-                    break;*/
+                    break;
 
                 /*case 32: // space
                     if ( canJump === true ) velocity.y += this.jumpSpeed;
@@ -285,11 +272,11 @@ function run(surfaceData) {
                     break;*/
 
                 case 81: //q
-                    moveForward = true;
+                    moveUp = true;
                     break;
 
                 case 69: //e
-                    moveBackward = true;
+                    moveDown = true;
                     break;
 
                 case 73: //I
@@ -308,13 +295,13 @@ function run(surfaceData) {
                     rotateRight = true;
                     break;
 
-                /*case 85://U
+                case 85://U
                     tiltRight = true;
                     break;
 
                 case 79://O
                     tiltLeft = true;
-                    break;*/
+                    break;
 
             }
 
@@ -325,8 +312,8 @@ function run(surfaceData) {
             switch( event.keyCode ) {
 
                 //case 38: // up
-                /*case 87: // w
-                    moveUp = false;
+                case 87: // w
+                    moveForward = false;
                     break;
 
                 //case 37: // left
@@ -336,23 +323,25 @@ function run(surfaceData) {
 
                 //case 40: // down
                 case 83: // a
-                    moveDown = false;
+                    moveBackward = false;
                     break;
 
                 //case 39: // right
                 case 68: // d
                     moveRight = false;
-                    break;*/
+                    break;
 
                 case 81: //q
-                    moveForward = false;
+                    moveUp = false;
                     break;
 
                 case 69: //e
-                    moveBackward = false;
+                    moveDown = false;
                     break;
 
-                
+
+
+
                  case 73: //I
                     rotateUp = false;
                     break;
@@ -369,14 +358,16 @@ function run(surfaceData) {
                     rotateRight = false;
                     break;
 
-                /*case 85://U
+                case 85://U
                     tiltRight = false;
                     break;
 
                 case 79://O
                     tiltLeft = false;
-                    break;*/
+                    break;
+
             }
+
         }
         document.addEventListener("keydown", onKeyDown, false);
         document.addEventListener("keyup", onKeyUp, false);
