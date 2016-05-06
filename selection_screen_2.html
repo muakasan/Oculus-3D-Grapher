@@ -225,14 +225,15 @@
             controller.on("gesture", function(gesture){
                 if(gesture.type === "swipe")
                 { 
-                    if(!executing && !graphing)
+                    if(!executing)
                     {
                         executing = true;
                         window.setTimeout(function(){
                             executing = false;
-                        }, 300);
+                        }, 1000);
+                        console.log(gesture.direction[2])
                         var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
-                        if(isHorizontal)
+                        if(isHorizontal && !graphing)
                         {
                             if(gesture.direction[0] > 0){
 
@@ -248,30 +249,24 @@
                                 console.log("left");
                             }
                         }
-                    }
-                }
-                  
-                else if(gesture.type === "keyTap" && !executing)
-                {
-                    executing = true;
-                    window.setTimeout(function(){
-                        executing = false;
-                    }, 1000);                    
-                    
-                    if(graphing)
-                    {
-                        console.log("Showing Menu Screen");
-                        $("#graph-div").empty();
-                        $("#left-half").show();
-                        $("#right-half").show();
-                    }
-                    else
-                    {
-                        console.log("picked graph");
-                        findRightSurface();
-                    }
-                    graphing = !graphing;
+                        else if(gesture.direction[1] < 0)
+                        {
+                            if(graphing)
+                            {
+                                console.log("Showing Menu Screen");
+                                $("#graph-div").empty();
+                                $("#left-half").show();
+                                $("#right-half").show();
+                            }
+                            else
+                            {
+                                console.log("picked graph");
+                                findRightSurface();
+                            }
+                            graphing = !graphing;
 
+                        }
+                    }
                 }
               //... handle gesture object
             });
