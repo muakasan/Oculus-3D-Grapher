@@ -197,6 +197,7 @@
     </div>
     <div id="right-half">
     </div>
+    <div id="graph-div"></div>
     <script type="text/javascript">
         $("#right-half").append($("#menu-div").clone());
         //$("#right-half").css("display", "inline");
@@ -220,11 +221,11 @@
             var controller = Leap.loop({enableGestures: true}, function(frame){
             });
             var executing = false;
-
+            var graphing = false;
             controller.on("gesture", function(gesture){
                 if(gesture.type === "swipe")
                 { 
-                    if(!executing)
+                    if(!executing && !graphing)
                     {
                         executing = true;
                         window.setTimeout(function(){
@@ -253,8 +254,24 @@
                 else if(gesture.type === "keyTap" && !executing)
                 {
                     executing = true;
-                    console.log("picked graph");
-                    findRightSurface();
+                    window.setTimeout(function(){
+                        executing = false;
+                    }, 1000);                    
+                    
+                    if(graphing)
+                    {
+                        console.log("Showing Menu Screen");
+                        $("#graph-div").empty();
+                        $("#left-half").show();
+                        $("#right-half").show();
+                    }
+                    else
+                    {
+                        console.log("picked graph");
+                        findRightSurface();
+                    }
+                    graphing = !graphing;
+
                 }
               //... handle gesture object
             });

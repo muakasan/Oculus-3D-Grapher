@@ -142,9 +142,8 @@ function run(surfaceData) {
             antialias: true
         });
         effect = new THREE.OculusRiftEffect(renderer);
-
-        
-        document.body.appendChild( renderer.domElement );
+        $("#graph-div").append($(renderer.domElement));
+        //document.body.appendChild( renderer.domElement );
         $("#left-half").hide();
         $("#right-half").hide();
 
