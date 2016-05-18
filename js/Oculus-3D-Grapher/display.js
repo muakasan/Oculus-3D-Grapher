@@ -167,48 +167,28 @@ function run(surfaceData) {
         if(intersections.length>0) {
             var distance = intersections[0].distance;
             if(distance>0 && distance<10) {
-                //controls.isOnObject(true);
             }
         }
 
         var polled = vr.pollState(vrstate);
-        //controls.update(Date.now() - time, polled ? vrstate: null);
 
         
 
         time = Date.now();
-        //camera.position.z+=100;
-        //console.log(camera.position.x, " ", camera.position.y, " ", camera.position.z);
-        if(moveForward) { //actually moves forward :/
-            //console.log("x: ", camera.rotation.x, " y: ", camera.rotation.y, " z: ", camera.rotation.z);
-            //var theta = camera.rotation.z;
-            //var phi = camera.rotation.
+        if(moveForward) { 
             var v = new THREE.Vector3(0,0,1);
-            //var newV = camera.worldToLocal(v);
-            //console.log(newV);
-            //var v = THREE.Vector3(0,1,0);
-            //camera.translateZ(1);
             camera.translateOnAxis(v,1);
-            //camera.position.z+=2*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            //camera.position.y-=5*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
-            //camera.position.x+=2*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
         }
         if(moveBackward) {
             var v = new THREE.Vector3(0,0,-1);
             camera.translateOnAxis(v,1);
-            //camera.position.z-=10;
-            //camera.position.z-=2*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            //camera.position.y+=5*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
-            //camera.position.x-=2*Math.sin(camera.rotation.y);//*Math.sin(camera.rotation.z);
         }
         if(moveLeft)
         {
-            //camera.position.x-=5;
             var v = new THREE.Vector3(-1,0,0);
             camera.translateOnAxis(v,1);
         }
         if(moveRight) {
-            //camera.position.x+=5;
             var v = new THREE.Vector3(1,0,0);
             camera.translateOnAxis(v,1);
         }
@@ -217,7 +197,6 @@ function run(surfaceData) {
             camera.translateOnAxis(v,1);
         }
         if(moveDown) {
-            //camera.position.y-=5;
             var v = new THREE.Vector3(0,-1,0);
             camera.translateOnAxis(v,1);
         }
@@ -226,21 +205,11 @@ function run(surfaceData) {
         if(rotateRight)
             camera.rotateY(-0.1);
         if(rotateUp) {
-            //camera.rotation.x+=Math.PI/36;
-            //camera.rotateByAxis
-            //var v = new THREE.Vector3(1,0,0);
-            //camera.rotate(v, 1);
             camera.rotateX(0.1);
         }
         if(rotateDown) {
-            //var v = new THREE.Vector3(-1,0,0);
-            //camera.rotate(v, 1);
             camera.rotateX(-0.1);
         }
-        if(tiltLeft)
-            camera.rotation.z+=Math.PI/36;
-        if(tiltRight)
-            camera.rotation.z-=Math.PI/36;
         effect.render(scene, camera, polled ? vrstate : null);
     }
 
@@ -302,11 +271,6 @@ function run(surfaceData) {
                     moveRight = true;
                     break;
 
-                /*case 32: // space
-                    if ( canJump === true ) velocity.y += this.jumpSpeed;
-                    canJump = false;
-                    break;*/
-
                 case 81: //q
                     moveForward = true;
                     break;
@@ -330,15 +294,6 @@ function run(surfaceData) {
                 case 76://L
                     rotateRight = true;
                     break;
-
-                /*case 85://U
-                    tiltRight = true;
-                    break;
-
-                case 79://O
-                    tiltLeft = true;
-                    break;*/
-
             }
 
         }
@@ -391,14 +346,6 @@ function run(surfaceData) {
                 case 76://L
                     rotateRight = false;
                     break;
-
-                /*case 85://U
-                    tiltRight = false;
-                    break;
-
-                case 79://O
-                    tiltLeft = false;
-                    break;*/
             }
         }
         document.addEventListener("keydown", onKeyDown, false);

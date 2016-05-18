@@ -166,52 +166,49 @@ function run(surfaceData) {
         if(intersections.length>0) {
             var distance = intersections[0].distance;
             if(distance>0 && distance<10) {
-                //controls.isOnObject(true);
             }
         }
 
         var polled = vr.pollState(vrstate);
-        //controls.update(Date.now() - time, polled ? vrstate: null);
 
         
 
         time = Date.now();
-        //camera.position.z+=100;
-        //console.log(camera.position.z);
-        if(moveUp) { //actually moves forward :/
-            console.log("x: ", camera.rotation.x, " y: ", camera.rotation.y, " z: ", camera.rotation.z);
-            //var theta = camera.rotation.z;
-            //var phi = camera.rotation.
-            camera.position.z+=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            camera.position.y-=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
-            camera.position.x-=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
+        if(moveForward) { 
+            var v = new THREE.Vector3(0,0,1);
+            camera.translateOnAxis(v,1);
         }
-        if(moveDown) {
-            //camera.position.z-=10;
-            camera.position.z-=10*Math.cos(camera.rotation.x)*Math.cos(camera.rotation.y);
-            camera.position.y+=10*Math.cos(camera.rotation.x)*Math.sin(camera.rotation.z);
-            camera.position.x+=10*Math.cos(camera.rotation.y)*Math.sin(camera.rotation.z);
+        if(moveBackward) {
+            var v = new THREE.Vector3(0,0,-1);
+            camera.translateOnAxis(v,1);
         }
         if(moveLeft)
-            camera.position.x-=10;
-        if(moveRight)
-            camera.position.x+=10;
-        if(moveForward)
-            camera.position.y+=10;
-        if(moveBackward)
-            camera.position.y-=10;
+        {
+            var v = new THREE.Vector3(-1,0,0);
+            camera.translateOnAxis(v,1);
+        }
+        if(moveRight) {
+            var v = new THREE.Vector3(1,0,0);
+            camera.translateOnAxis(v,1);
+        }
+        if(moveUp) {
+            var v = new THREE.Vector3(0,1,0);
+            camera.translateOnAxis(v,1);
+        }
+        if(moveDown) {
+            var v = new THREE.Vector3(0,-1,0);
+            camera.translateOnAxis(v,1);
+        }
         if(rotateLeft)
-            camera.rotation.y+=Math.PI/36;
+            camera.rotateY(0.1);
         if(rotateRight)
-            camera.rotation.y-=Math.PI/36;
-        if(rotateUp)
-            camera.rotation.x+=Math.PI/36;
-        if(rotateDown)
-            camera.rotation.x-=Math.PI/36;
-        if(tiltLeft)
-            camera.rotation.z+=Math.PI/36;
-        if(tiltRight)
-            camera.rotation.z-=Math.PI/36;
+            camera.rotateY(-0.1);
+        if(rotateUp) {
+            camera.rotateX(0.1);
+        }
+        if(rotateDown) {
+            camera.rotateX(-0.1);
+        }
         effect.render(scene, camera, polled ? vrstate : null);
     }
 
@@ -223,9 +220,15 @@ function run(surfaceData) {
                 firstFrame = frame;
             }
             var linearMovement = frame.translation(firstFrame); 
-            surface.position.x += parseInt(linearMovement[0])/100;
+            /*surface.position.x += parseInt(linearMovement[0])/100;
             surface.position.y += parseInt(linearMovement[1])/100;
-            surface.position.z += parseInt(linearMovement[2])/100;
+            surface.position.z += parseInt(linearMovement[2])/100;*/
+            camera.translateX(parseInt(linearMovement[0])/500);
+            camera.translateY(parseInt(linearMovement[1])/500);
+            camera.translateZ(parseInt(linearMovement[2])/500);
+            var rotationMovement = frame.rotation(firstFrame);
+            camera.rotateX(parseInt(rotationMovement[0])/500);
+            camera.rotateY(parseInt(rotationMovement[1])/500);
             iter();
         });
         controller.connect();
@@ -308,63 +311,51 @@ function run(surfaceData) {
 
         var onKeyUp = function ( event ) {
 
-            switch( event.keyCode ) {
+            switch ( event.keyCode ) {
 
                 //case 38: // up
                 case 87: // w
-                    moveForward = false;
-                    break;
+                    moveUp = true;
+                     break;
 
                 //case 37: // left
                 case 65: // a
-                    moveLeft = false;
+                    moveLeft = true; 
                     break;
 
                 //case 40: // down
-                case 83: // a
-                    moveBackward = false;
+                case 83: // s
+                    moveDown = true;
                     break;
 
                 //case 39: // right
                 case 68: // d
-                    moveRight = false;
+                    moveRight = true;
                     break;
 
                 case 81: //q
-                    moveUp = false;
+                    moveForward = true;
                     break;
 
                 case 69: //e
-                    moveDown = false;
+                    moveBackward = true;
                     break;
 
-
-
-
-                 case 73: //I
-                    rotateUp = false;
+                case 73: //I
+                    rotateUp = true;
                     break;
 
                 case 75: //K
-                    rotateDown = false;
+                    rotateDown = true;
                     break;
 
                 case 74: //J
-                    rotateLeft = false;
+                    rotateLeft = true;
                     break;
 
                 case 76://L
-                    rotateRight = false;
+                    rotateRight = true;
                     break;
-
-                case 85://U
-                    tiltRight = false;
-                    break;
-
-                case 79://O
-                    tiltLeft = false;
-                    break;
-
             }
 
         }
