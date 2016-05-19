@@ -146,6 +146,11 @@ function run(surfaceData) {
         //document.body.appendChild( renderer.domElement );
         $("#left-half").hide();
         $("#right-half").hide();
+        
+        $("#graph-div > canvas").css({
+            "width": "100%",
+            "height": "100%"
+        });
 
         window.addEventListener("keydown", function(e) {
             // space and arrow keys
