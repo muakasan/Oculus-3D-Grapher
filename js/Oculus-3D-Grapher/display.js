@@ -235,15 +235,7 @@ function run(surfaceData) {
         iter();
     }
     function animate() {
-        if(!$("#disable-leap-checkbox").is(":checked"))
-        {
-            animateWithLeap();
-           
-        }
-        else {
-            animateNoLeap();
-
-        }
+        animateNoLeap();
     }
 
     function bindKeys() {
