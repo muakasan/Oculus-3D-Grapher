@@ -231,9 +231,13 @@ function run(surfaceData) {
             camera.translateX(parseInt(linearMovement[0])/500);
             camera.translateY(parseInt(linearMovement[1])/500);
             camera.translateZ(parseInt(linearMovement[2])/500);
-            var rotationMovement = frame.rotation(firstFrame);
-            camera.rotateX(parseInt(rotationMovement[0])/500);
-            camera.rotateY(parseInt(rotationMovement[1])/500);
+            
+            //var rotationMovement = frame.rotationAngle(firstFrame);
+            
+            camera.rotateX(parseInt(frame.rotationAngle(firstFrame, [1, 0, 0])/500));
+            camera.rotateY(parseInt(frame.rotationAngle(firstFrame, [0, 1, 0])/500));
+            //camera.rotateY(parseInt(rotationMovement[1])/500);
+            
             iter();
         });
         controller.connect();
